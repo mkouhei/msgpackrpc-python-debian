@@ -1,0 +1,36 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+export PYBUILD_NAME=python-msgpackrpc
+PYVERS := $(shell pyversions -d)
+PY3VERS := $(shell py3versions -d)
+
+%:
+	dh $@ --with=python2,python3 --buildsystem=pybuild
+
+override_dh_auto_build:
+	$(PYVERS) setup.py build --build-base=build2 && \
+	$(PY3VERS) setup.py build --build-base=build3
+
+override_dh_auto_test:
+	PYTHONPATH=build2/lib.linux-x86_64-2.7 python test/test_msgpackrpc.py && \
+	sleep 5 && \
+	PYTHONPATH=build2/lib.linux-x86_64-2.7 python test/test_msgpackrpc.py --timeout-test && \
+	sleep 5 && \
+	PYTHONPATH=build3/lib python3 test/test_msgpackrpc.py --timeout-test
+
+override_dh_auto_install:
+	$(PYVERS) setup.py install --no-compile -O0 --install-layout=deb \
+	--root $(CURDIR)/debian/python-msgpackrpc
+	$(PY3VERS) setup.py install --no-compile -O0 --install-layout=deb \
+	--root $(CURDIR)/debian/python3-msgpackrpc
+
+override_dh_auto_clean:
+	dh_clean
+	rm -rf ${CURDIR}/build*
+	rm -rf ${CURDIR}/.pybuild
+	rm -rf ${CURDIR}/msgpack_rpc_python.egg-info
+	find ${CURDIR} -name "*pyc" -delete

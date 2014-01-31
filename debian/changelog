@@ -1,0 +1,5 @@
+msgpackrpc-python (0.4~dev~git20130402+8cb1eeb-1) unstable; urgency=low
+
+  * Initial release (Closes: #nnnn)
+
+ -- Kouhei Maeda <mkouhei@palmtb.net>  Tue, 28 Jan 2014 18:55:29 +0900

@@ -1,0 +1,33 @@
+Source: msgpackrpc-python
+Section: python
+Priority: extra
+Maintainer: Kouhei Maeda <mkouhei@palmtb.net>
+Build-Depends: debhelper (>= 9.0.0),
+	python-all,
+	python-setuptools,
+	python-msgpack (>= 0.3),
+	python-tornado (>= 3),
+	python3-all,
+	python3-setuptools,
+	python3-msgpack (>= 0.3),
+	python3-tornado (>= 3)
+Standards-Version: 3.9.5
+X-Python-Version: >= 2.7, >= 3.3
+Homepage: https://github.com/msgpack-rpc/msgpack-rpc-python
+
+Package: python-msgpackrpc
+Architecture: all
+Depends: ${python:Depends}, ${misc:Depends}, python-msgpack (>= 0.3), python-tornado (>= 3)
+Description: MessagePack RPC implementation for Python
+ MessagePack RPC implementation based on Tornado.
+ Using msgpackrpc.Server class as Server,
+ using msgpackrpc.Client class as Client.
+
+Package: python3-msgpackrpc
+Architecture: all
+Depends: ${python:Depends}, ${misc:Depends}, python3-msgpack (>= 0.3), python3-tornado (>= 3)
+Description: MessagePack RPC implementation for Python3
+ For Python3.
+ MessagePack RPC implementation based on Tornado.
+ Using msgpackrpc.Server class as Server,
+ using msgpackrpc.Client class as Client.
